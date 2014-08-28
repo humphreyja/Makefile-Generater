@@ -51,26 +51,19 @@ done
 shift $(($OPTIND-1))
 
 
-curDir=$(pwd)
 
-declare -a files
 declare -a objs
 declare -a headers
 
-for filename in "$curDir"/*
-do
-	files=("${files[@]}" "${filename##*/}")
-	
-done
-
+files=(*)
 
 for f in "${files[@]}"
 do
 	if [[ $f == $defaultfile ]]; then
-		objsmap=(${objs[@]} "$f ${f%%.*}.o" )
-		objs=("${objs[@]}" "${f%%.*}.o")
+		objsmap+=("$f ${f%%.*}.o")
+		objs+=("${f%%.*}.o")
 	elif [[ $f == *.h ]]; then
-		headers=("${headers[@]}" "$f")
+		headers+=("$f")
 	fi
 done
 
@@ -102,17 +95,16 @@ echo -e '$(EXE):\t\t$(OBJECTS)' >> makefile
 echo -e '\t\t$(CC) -o $(EXE) $(OBJECTS)' >> makefile
 
 
-
-
+declare -a cppheaderlist
 for o in "${objsmap[@]}"
 do
-	declare -a cppheaderlist
+	unset cppheaderlist
 	for h in "${headers[@]}"
 	do
 		cppfilename=$(echo "${o[0]}" | awk '{print $1}')
 		cat $cppfilename | grep -q "$h"
 		if [ $? -eq 0 ]; then
-			cppheaderlist=("${cppheaderlist[@]}" "$h")
+			cppheaderlist+=("$h")
 		fi
 	done
 	
