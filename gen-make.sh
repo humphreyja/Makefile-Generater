@@ -3,6 +3,7 @@
 helpmsg() {
 	echo "Usage: gen-make [ -e name ] [ -c ]"
 	echo "                [ -s compiler name ]"
+	echo "                [ -f compile flag ]"
 	echo "Try 'gen-make -h' for more information"
 	if [ $1 -eq 1 ]; then
 	echo "Description:"
@@ -16,6 +17,8 @@ helpmsg() {
 	echo "	-c (optional) specifies to create the make file for"
 	echo "	   compiling C programs.  Default is C++"
 	echo
+	echo "	-f (optional) specifies the version of c++ to use like c++11"
+	echo 
 	fi
 	exit 1
 } 
@@ -26,10 +29,13 @@ clean='rm -rf *.o $(EXE)'
 exearg=0
 defaultfile="*.cpp"
 
-while getopts ":s: :e: :c :h" opt; do
+while getopts ":s: :e: :c :h :f:" opt; do
 	case $opt in
 	c) 
 		defaultfile="*.c"
+		;;
+	f)
+		cflag="-std=$OPTARG"
 		;;
 	s)
 		compiler="$OPTARG"
@@ -90,6 +96,7 @@ fi
 echo "CC= $compiler" >> makefile
 echo "OBJECTS= ${objs[@]}" >> makefile
 echo "EXE= $exe" >> makefile
+echo "CFLAGS= $cflag" >> makefile
 echo >> makefile
 echo -e '$(EXE):\t\t$(OBJECTS)' >> makefile
 echo -e '\t\t$(CC) -o $(EXE) $(OBJECTS)' >> makefile
