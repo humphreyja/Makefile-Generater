@@ -4,9 +4,10 @@ Created Date:	9/3/2014
 
 Run setup as root to add this program to the shells PATH
 
-Description: 	This program generates a makefile for either C++ programs or
-				for C programs. The default is C++. This will only generate 
-				a makefile with the files contained in the current directory.
+Description: 	
+	This program generates a makefile for either C++ programs or
+	for C programs. The default is C++. This will only generate 
+	a makefile with the files contained in the current directory.
 				
 Options:
 	-c flag for generating the makefile for C programming.  
