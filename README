@@ -1,0 +1,18 @@
+Program:		gen-make
+Created by: 	Jake Humphrey
+Created Date:	9/3/2014
+
+Run setup as root to add this program to the shells PATH
+
+Description: 	This program generates a makefile for either C++ programs or
+				for C programs. The default is C++. This will only generate 
+				a makefile with the files contained in the current directory.
+				
+Options:
+	-c flag for generating the makefile for C programming.  
+	-e <name> to override the executable name prompt.
+	-s to specify a different compiler to use. Default is g++.
+	-f <version> (format example: c++11) to specify the version of c++ to use.
+
+This program was tested with: OpenSUSE, Ubuntu
+If there are any issues with this program, contact Jake Humphrey at humphreyja@mnstate.edu
