@@ -9,3 +9,4 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 cp ./gen-make /bin/gen-make
+
